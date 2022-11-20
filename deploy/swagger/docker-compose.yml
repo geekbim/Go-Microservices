@@ -1,0 +1,10 @@
+version: "3.3"
+
+services:
+  crox_docs:
+    image: registry.gitlab.com/salt-and-pepper/crox-and-t-survey/backend-services/swagger:latest
+    container_name: crox_docs
+    environment:
+      URL: docs/api-docs.yaml
+    ports:
+      - "8081:8080"

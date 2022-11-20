@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  crox_krakend:
+    image: devopsfaith/krakend:1.4.1
+    container_name: crox_krakend
+    restart: always
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: "Asia/Jakarta"
+    ports:
+      - 80:8101
+    volumes:
+      - ./docroot/plugin:/etc/krakend/plugin:ro
+      - ./docroot/krakend.json:/etc/krakend/krakend.json:ro
+  crox_api:
+    image: ${IMG_API}:latest
+    container_name: crox_api
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: "Asia/Jakarta"
+    working_dir: /app
+    ports:
+      - 8080:8102
+      - 8081:8103
+    volumes:
+      - ./docroot/.env:/app/.env

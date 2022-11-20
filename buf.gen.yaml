@@ -1,0 +1,11 @@
+version: v1beta1
+plugins:
+  - name: go
+    out: proto/_generated
+    opt: paths=source_relative
+  - name: go-grpc
+    out: proto/_generated
+    opt: paths=source_relative,require_unimplemented_servers=false
+  - name: grpc-gateway
+    out: proto/_generated
+    opt: paths=source_relative

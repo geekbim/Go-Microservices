@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: Docs Api
+  description: This is a docs server api.
+  termsOfService: 'https://swagger.io/terms/'
+  contact:
+    email: manyuabim9@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  version: '1.0.0.0'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'https://swagger.io'
+servers:
+  - url: 'http://localhost:8001'
+tags:
+  - name: user
+    description: user information
+  - name: auth
+    description: auth information
+paths:
+  /v1/A/user/create:
+    post:
+      tags:
+        - user
+      summary: Create new user.
+      operationId: createUser
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequestModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponseModel'
+        '500':
+          description: Internal Error
+  /v1/A/auth/email:
+    post:
+      tags:
+        - auth
+      summary: Login with email.
+      operationId: loginEmail
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginEmailRequestModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginEmailResponseModel'
+        '500':
+          description: Internal Error
+components:
+  schemas:
+    CreateUserRequestModel:
+      title: Request user create
+      description: Request user create
+      properties:
+        name:
+          title: user display name
+          type: string
+          example: john doe
+          default: john doe
+        email:
+          title: email address
+          type: string
+          example: email@domain.com
+          default: email@domain.com
+        password:
+          title: password
+          type: string
+          example: password
+          default: password
+      type: object
+    LoginEmailRequestModel:
+      title: Request login email
+      description: Request login email
+      properties:
+        email:
+          title: email address
+          type: string
+          example: email@domain.com
+          default: email@domain.com
+        password:
+          title: password
+          type: string
+          example: password
+          default: password
+      type: object
+    CreateUserResponseModel:
+      title: Response user create
+      description: Response user create
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              title: uuid
+              type: string
+              example: 711640c4-0e22-11ec-82a8-0242ac130003
+              default: 711640c4-0e22-11ec-82a8-0242ac130003
+            name:
+              title: user display name
+              type: string
+              example: john doe
+              default: john doe
+            email:
+              title: email address
+              type: string
+              example: email@domain.com
+              default: email@domain.com
+            createdAt:
+              title: is created at
+              type: string
+              format: date-time
+              pattern: '\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}'
+            updatedAt:
+              title: is updated at
+              type: string
+              format: date-time
+              pattern: '\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}'
+      type: object
+    LoginEmailResponseModel:
+      title: Response user create
+      description: Response user create
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              title: uuid
+              type: string
+              example: 711640c4-0e22-11ec-82a8-0242ac130003
+              default: 711640c4-0e22-11ec-82a8-0242ac130003
+            email:
+              title: email address
+              type: string
+              example: email@domain.com
+              default: email@domain.com
+      type: object
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      name: a_token
+      in: cookie

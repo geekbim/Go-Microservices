@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "golang-testing/proto;userPb";
+
+import "google/api/annotations.proto";
+import "google/api/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service UserService {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/{app}/user/create"
+            body: "body"
+        };
+    }
+}
+
+message CreateUserRequest {
+    enum AppType {
+        A = 0;
+        B = 1;
+    };
+    AppType app = 1;
+    CreateUserBodyRequest body = 2;
+}
+
+message CreateUserBodyRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message CreateUserResponse {
+    User data = 1;
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+}

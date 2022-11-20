@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  crox_user:
+    image: ${IMG_USER}:latest
+    container_name: crox_user
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: "Asia/Jakarta"
+    working_dir: /app
+    ports:
+      - 80:8105
+    volumes:
+      - ./docroot/.env:/app/environment/user/.env

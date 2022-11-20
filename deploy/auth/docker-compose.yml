@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  crox_auth:
+    image: ${IMG_AUTH}:latest
+    container_name: crox_auth
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: "Asia/Jakarta"
+    working_dir: /app
+    ports:
+      - 80:8103
+    volumes:
+      - ./docroot/.env:/app/environment/auth/.env

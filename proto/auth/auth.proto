@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "go-grpc-example/proto:authPb";
+
+import "google/api/annotations.proto";
+import "google/api/timestamp.proto";
+
+service AuthService {
+    rpc FindAuthEmail (FindAuthEmailRequest) returns (FindAuthEmailResponse) {
+        option (google.api.http) = {
+            post: "/v1/{app}/auth/email"
+            body: "body"
+        };
+    }
+    rpc CreateAuth(CreateAuthRequest) returns (CreateAuthResponse) {}
+}
+
+message FindAuthEmailRequest {
+    enum AppType {
+        A = 0;
+        B = 1;
+    }
+    AppType app = 1;
+    AuthEmailBodyRequest body = 2;
+}
+
+message AuthEmailBodyRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message FindAuthEmailResponse {
+    AuthEmail data = 1;
+}
+
+message AuthEmail {
+    string id = 1;
+    string email = 2;
+}
+
+message CreateAuthRequest {
+    string app = 1;
+    string user_id = 2;
+    string name = 3;
+    string email = 4;
+    string password = 5;
+}
+
+message CreateAuthResponse {}
