@@ -4,7 +4,7 @@
 
 please also read https://github.com/golang-standards/project-layout
 
-Following is the proposed project structure when Telkomsel Engineer team wants to create Golang microservice /
+Following is the proposed project structure when Back End Engineer team wants to create Golang microservice /
 application
 
 ```
